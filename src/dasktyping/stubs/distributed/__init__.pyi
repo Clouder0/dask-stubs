@@ -24,6 +24,7 @@ U = TypeVar("U")
 KT = TypeVar("KT")
 P = ParamSpec("P")
 T_co = TypeVar("T_co", covariant=True)
+PersistableT = TypeVar("PersistableT")
 
 class Future(Generic[T_co]):
     """Remote result managed by a Dask scheduler."""
@@ -193,23 +194,23 @@ class Client:
     @overload
     def persist(
         self,
-        collection: Any,
+        collection: PersistableT,
         *,
         optimize_graph: bool = ...,
         scheduler: str | None = ...,
         traverse: bool | None = ...,
         asynchronous: Literal[True],
-    ) -> Awaitable[Any]: ...
+    ) -> Awaitable[PersistableT]: ...
     @overload
     def persist(
         self,
-        collection: Any,
+        collection: PersistableT,
         *,
         optimize_graph: bool = ...,
         scheduler: str | None = ...,
         traverse: bool | None = ...,
         asynchronous: Literal[False] | None = ...,
-    ) -> Any: ...
+    ) -> PersistableT: ...
     def get_future(self, key: str) -> Future[Any]: ...
     def cancel(self, futures: Future[Any] | Sequence[Future[Any]]) -> None: ...
     def futures_of(self, collection: Any) -> list[Future[Any]]: ...
@@ -308,24 +309,14 @@ class AsyncClient:
         optimize_graph: bool = ...,
         scheduler: str | None = ...,
     ) -> Any: ...
-    @overload
     async def persist(
         self,
-        collection: Delayed[T],
+        collection: PersistableT,
         *,
         optimize_graph: bool = ...,
         scheduler: str | None = ...,
         traverse: bool | None = ...,
-    ) -> Delayed[T]: ...
-    @overload
-    async def persist(
-        self,
-        collection: Any,
-        *,
-        optimize_graph: bool = ...,
-        scheduler: str | None = ...,
-        traverse: bool | None = ...,
-    ) -> Any: ...
+    ) -> PersistableT: ...
 
 @overload
 def wait(

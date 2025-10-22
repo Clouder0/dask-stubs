@@ -81,8 +81,8 @@ wheels = [
 ]
 
 [[package]]
-name = "dask-typing"
-version = "0.1.0"
+name = "dasktyping"
+version = "0.0.2"
 source = { editable = "." }
 
 [package.dev-dependencies]
