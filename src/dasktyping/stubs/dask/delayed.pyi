@@ -43,9 +43,7 @@ class Delayed(Generic[T]):
 @overload
 def delayed(__func: Callable[P, R], /) -> Callable[P, Delayed[R]]: ...  # type: ignore[overload-overlap]
 @overload
-def delayed(
-    __func: Callable[P, R], /, *args: P.args, **kwargs: P.kwargs
-) -> Delayed[R]: ...
+def delayed(__func: Callable[P, R], /, *args: P.args, **kwargs: P.kwargs) -> Delayed[R]: ...
 
 # ``delayed`` accepts both callables and plain values. Because Python's type system
 # cannot express "non-callable object" today, the following value overload overlaps

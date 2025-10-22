@@ -1,4 +1,4 @@
-"""Package helpers for the types-dask project."""
+"""Package helpers for the dasktyping project."""
 
 from __future__ import annotations
 

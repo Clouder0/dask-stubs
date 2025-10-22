@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-The stub package lives under `src/types_dask`. Place public `.pyi` stubs inside `src/types_dask/stubs`, mirroring the runtime package structure (for example, `stubs/delayed/__init__.pyi`). Annotated usage samples and fixtures for validation live in `tests/typecheck/samples`, while entry points for automation and settings reside in `noxfile.py`, `pyproject.toml`, and `pyrightconfig.json`. Keep generated artifacts in `build/` and leave transient caches untracked.
+The stub package lives under `src/dasktyping`. Place public `.pyi` stubs inside `src/dasktyping/stubs`, mirroring the runtime package structure (for example, `stubs/delayed/__init__.pyi`). Annotated usage samples and fixtures for validation live in `tests/typecheck/samples`, while entry points for automation and settings reside in `noxfile.py`, `pyproject.toml`, and `pyrightconfig.json`. Keep generated artifacts in `build/` and leave transient caches untracked.
 
 ## Build, Test, and Development Commands
 
@@ -22,4 +22,4 @@ Follow Conventional Commit prefixes (`feat`, `fix`, `docs`, `test`, `chore`) and
 
 ## IDE & Agent Tips
 
-For VS Code with Pylance, set `"python.analysis.stubPath": ["src/types_dask/stubs"]` in workspace settings or `pyrightconfig.json`. When running automated agents, export `UV_CACHE_DIR=.uv-cache` to avoid permission errors and drive all automation through `uv run` to respect the locked dependency set. Prefer submitting typed callables over lambdas when checking distributed futures to keep type inference precise.
+For VS Code with Pylance, set `"python.analysis.stubPath": ["src/dasktyping/stubs"]` in workspace settings or `pyrightconfig.json`. When running automated agents, export `UV_CACHE_DIR=.uv-cache` to avoid permission errors and drive all automation through `uv run` to respect the locked dependency set. Prefer submitting typed callables over lambdas when checking distributed futures to keep type inference precise.

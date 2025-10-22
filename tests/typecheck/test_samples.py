@@ -7,7 +7,7 @@ from typing import Sequence
 import pytest
 from mypy import api as mypy_api
 
-from types_dask import get_stub_root
+from dasktyping import get_stub_root
 
 
 SAMPLE_ROOT = Path(__file__).with_suffix("").parent / "samples"

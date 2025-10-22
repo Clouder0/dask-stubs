@@ -1,5 +1,5 @@
 [project]
-name = "types-dask"
+name = "dask-typing"
 version = "0.1.0"
 description = "Typing stubs for the Dask ecosystem."
 readme = "README.md"
@@ -25,10 +25,10 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["types_dask"]
+include = ["dasktyping"]
 
 [tool.setuptools.package-data]
-types_dask = ["py.typed", "stubs/**/*.pyi"]
+dasktyping = ["py.typed", "stubs/**/*.pyi"]
 
 [tool.ruff]
 line-length = 100
@@ -39,7 +39,7 @@ target-version = "py312"
 python_version = "3.12"
 strict = true
 warn_unused_configs = true
-mypy_path = ["src/types_dask/stubs"]
+mypy_path = ["src/dasktyping/stubs"]
 namespace_packages = true
 explicit_package_bases = true
 

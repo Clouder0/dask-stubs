@@ -1,6 +1,6 @@
-# Types-Dask
+# dasktyping
 
-`types-dask` provides third-party typing information for the Dask project. The
+`dasktyping` provides third-party typing information for the Dask project. The
 goal is to fill the gaps left by the runtime package so that type checkers such
 as Mypy and Pyright can reason about typical Dask usage with confidence.
 
@@ -8,7 +8,7 @@ as Mypy and Pyright can reason about typical Dask usage with confidence.
 
 The repository separates runtime helpers from the stub definitions:
 
-- `src/types_dask/stubs/` holds `.pyi` files that mirror the public Dask API.
+- `src/dasktyping/stubs/` holds `.pyi` files that mirror the public Dask API.
 - `tests/typecheck/samples/` provides runtime-free Python snippets that mypy
   validates to guard the stubs.
 - `noxfile.py` defines automation for linting, type checking, and stub sanity
