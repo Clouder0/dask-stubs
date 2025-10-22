@@ -48,6 +48,8 @@ def tests(session: nox.Session) -> None:
         "tests",
         env={
             "MYPYPATH": str(STUB_ROOT),
-            "PYTHONPATH": os.pathsep.join((os.fsdecode(STUB_ROOT), os.fsdecode(REPO_ROOT / "src"))),
+            "PYTHONPATH": os.pathsep.join(
+                (os.fsdecode(STUB_ROOT), os.fsdecode(REPO_ROOT / "src"))
+            ),
         },
     )

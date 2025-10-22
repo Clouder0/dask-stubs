@@ -1,12 +1,10 @@
-Types-Dask
-==========
+# Types-Dask
 
 `types-dask` provides third-party typing information for the Dask project. The
 goal is to fill the gaps left by the runtime package so that type checkers such
 as Mypy and Pyright can reason about typical Dask usage with confidence.
 
-Project layout
---------------
+## Project layout
 
 The repository separates runtime helpers from the stub definitions:
 
@@ -16,8 +14,7 @@ The repository separates runtime helpers from the stub definitions:
 - `noxfile.py` defines automation for linting, type checking, and stub sanity
   checks.
 
-Quick start
------------
+## Quick start
 
 1. Install development dependencies with `uv` (Python 3.12+):
 
@@ -33,8 +30,7 @@ Quick start
 
    This runs Ruff, Mypy against the stubs, and the sample type-check tests.
 
-Contribution guidelines
------------------------
+## Contribution guidelines
 
 1. Prefer working against small slices of the API. It is easier to review and
    iterate on focused modules.
