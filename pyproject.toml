@@ -1,5 +1,5 @@
 [project]
-name = "dask-typing"
+name = "dasktyping"
 version = "0.1.0"
 description = "Typing stubs for the Dask ecosystem."
 readme = "README.md"
@@ -20,15 +20,8 @@ classifiers = [
 ]
 
 [build-system]
-requires = ["setuptools>=69", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["dasktyping"]
-
-[tool.setuptools.package-data]
-dasktyping = ["py.typed", "stubs/**/*.pyi"]
+requires = ["uv_build>=0.9.3,<0.10.0"]
+build-backend = "uv_build"
 
 [tool.ruff]
 line-length = 100
