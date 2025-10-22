@@ -1,5 +1,5 @@
 [project]
-name = "dasktyping"
+name = "dask-stubs"
 version = "0.1.1"
 description = "Typing stubs for the Dask ecosystem."
 readme = "README.md"
@@ -32,7 +32,7 @@ target-version = "py312"
 python_version = "3.12"
 strict = true
 warn_unused_configs = true
-mypy_path = ["src/dasktyping/stubs"]
+mypy_path = ["src/dask-stubs"]
 namespace_packages = true
 explicit_package_bases = true
 

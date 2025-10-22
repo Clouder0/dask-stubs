@@ -22,7 +22,7 @@ outlines the conventions used in this repository.
 
 ## Styling guidelines
 
-- Type stubs live in `src/dasktyping/stubs/`. Mirror the module layout from the
+- Type stubs live in `src/dask-stubs/`. Mirror the module layout from the
   runtime package (`dask`, `distributed`, etc.).
 - Prefer precise typing over `Any`, but do not guess—`Any` with a `TODO` is
   better than an incorrect signature.

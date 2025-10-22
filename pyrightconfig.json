@@ -1,4 +1,4 @@
 {
   "extraPaths": ["src"],
-  "stubPath": "src/dasktyping/stubs"
+  "stubPath": "src/dask-stubs"
 }

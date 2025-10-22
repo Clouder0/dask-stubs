@@ -1,4 +1,4 @@
-"""Automation entry points for the dasktyping project."""
+"""Automation entry points for the dask-stubs project."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ nox.options.error_on_missing_interpreters = False
 nox.options.default_venv_backend = "uv"
 
 REPO_ROOT = Path(__file__).parent.resolve()
-STUB_ROOT = REPO_ROOT / "src" / "dasktyping" / "stubs"
+STUB_ROOT = REPO_ROOT / "src" / "dask-stubs"
 
 
 @nox.session
@@ -30,7 +30,7 @@ def typecheck(session: nox.Session) -> None:
     session.install("mypy")
     session.run(
         "mypy",
-        "src/dasktyping/stubs",
+        "src/dask-stubs",
         "tests/typecheck/samples",
         env={
             "MYPYPATH": str(STUB_ROOT),
