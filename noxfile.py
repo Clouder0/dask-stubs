@@ -42,7 +42,7 @@ def typecheck(session: nox.Session) -> None:
 @nox.session
 def tests(session: nox.Session) -> None:
     """Run usage-based tests that exercise the stubs."""
-    session.install("pytest", "pytest-mypy-plugins", "mypy")
+    session.install("pytest", "pytest-asyncio", "pytest-mypy-plugins", "mypy", "dask[distributed]")
     session.run(
         "pytest",
         "tests",

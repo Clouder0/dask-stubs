@@ -42,10 +42,11 @@ testpaths = ["tests"]
 
 [dependency-groups]
 dev = [
-  "dask>=2025.10.0",
+  "dask[distributed]>=2025.10.0",
   "mypy>=1.18.2",
   "nox>=2025.10.16",
   "pytest>=8.4.2",
+  "pytest-asyncio>=1.2.0",
   "pytest-mypy-plugins>=3.2.0",
   "ruff>=0.14.1",
 ]
