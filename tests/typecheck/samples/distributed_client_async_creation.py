@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import asyncio
 from typing import TYPE_CHECKING, Any, Mapping, assert_type
 
 from dask import delayed
@@ -23,6 +22,8 @@ _LOCAL_CLUSTER_KWARGS: Mapping[str, Any] = {
     "threads_per_worker": 1,
     "timeout": "2s",
     "dashboard_address": None,
+    "protocol": "inproc",
+    "scheduler_kwargs": {"dashboard": False, "dashboard_address": None},
 }
 
 
@@ -88,7 +89,6 @@ async def persist_without_await() -> None:
 
 
 def create_sync_client() -> None:
-    asyncio.run(await_client_creation())
     try:
         client = Client(**_LOCAL_CLUSTER_KWARGS)
     except OSError as exc:
