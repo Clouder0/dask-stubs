@@ -319,6 +319,7 @@ class AsyncClient:
         scheduler: str | None = ...,
         traverse: bool | None = ...,
     ) -> PersistableT: ...
+    def futures_of(self, collection: Any) -> list[Future[Any]]: ...
 
 class LocalCluster:
     """In-process cluster useful for tests and experimentation."""

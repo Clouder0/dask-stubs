@@ -27,10 +27,7 @@ def _load_sample_module() -> object:
     return module
 
 
-try:
-    _sample = _load_sample_module()
-except ModuleNotFoundError as exc:  # pragma: no cover - runtime dependency guard
-    raise RuntimeError(f"Runtime Dask/Distributed required: {exc}") from exc
+_sample = _load_sample_module()
 
 ensure_scheduler_pass_through = getattr(_sample, "ensure_scheduler_pass_through")
 ensure_worker_handles_http = getattr(_sample, "ensure_worker_handles_http")

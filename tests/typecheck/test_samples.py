@@ -25,13 +25,13 @@ def _find_stub_root() -> Path:
         try:
             traversable = Path(str(dist.locate_file(candidate)))
         except FileNotFoundError:
-            continue
+            raise
 
         try:
             with resources.as_file(traversable) as resolved:
                 path = Path(resolved)
         except FileNotFoundError:
-            continue
+            raise
 
         if candidate.endswith(".pyi"):
             path = path.parent

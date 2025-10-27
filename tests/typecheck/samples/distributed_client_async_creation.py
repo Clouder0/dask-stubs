@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Any, Mapping, assert_type
 
 from dask import delayed
 from dask.delayed import Delayed
-from dask.distributed import Client
+from dask.distributed import Client, Future
 
 if TYPE_CHECKING:
     from dask.distributed import AsyncClient
@@ -84,6 +84,60 @@ async def persist_without_await() -> None:
             result = await async_client.compute(persisted)
             assert_type(result, int)
             assert result == 1
+        finally:
+            await async_client.close()
+
+
+async def futures_of_persisted_value() -> None:
+    try:
+        async_client = await Client(asynchronous=True, **_LOCAL_CLUSTER_KWARGS)
+    except OSError as exc:
+        _raise_cluster_failed(exc)
+    except RuntimeError as exc:
+        if "Cluster failed to start" in str(exc):
+            _raise_cluster_failed(exc)
+        raise
+    else:
+        try:
+            delayed_value: Delayed[int] = _produce_value()
+            persisted = async_client.persist(delayed_value)
+            futures = async_client.futures_of(persisted)
+            if TYPE_CHECKING:
+                assert_type(futures, list[Future[Any]])
+            assert futures
+            assert all(isinstance(future, Future) for future in futures)
+
+            results = await async_client.gather(futures)
+            assert results == [1]
+        finally:
+            await async_client.close()
+
+
+async def futures_of_submitted_future() -> None:
+    try:
+        async_client = await Client(asynchronous=True, **_LOCAL_CLUSTER_KWARGS)
+    except OSError as exc:
+        _raise_cluster_failed(exc)
+    except RuntimeError as exc:
+        if "Cluster failed to start" in str(exc):
+            _raise_cluster_failed(exc)
+        raise
+    else:
+        try:
+            future = await async_client.submit(lambda: 41)
+            if TYPE_CHECKING:
+                assert_type(future, Future[int])
+
+            futures = async_client.futures_of(future)
+            if TYPE_CHECKING:
+                assert_type(futures, list[Future[Any]])
+            assert futures
+            assert all(isinstance(future, Future) for future in futures)
+            assert future in futures
+
+            result = await async_client.gather(future)
+            assert isinstance(result, int)
+            assert result == 41
         finally:
             await async_client.close()
 

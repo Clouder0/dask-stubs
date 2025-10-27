@@ -24,10 +24,7 @@ def _load_sample_module() -> object:
     return module
 
 
-try:
-    _sample = _load_sample_module()
-except ModuleNotFoundError as exc:  # pragma: no cover - runtime dependency guard
-    raise RuntimeError(f"Runtime Dask/Distributed required: {exc}") from exc
+_sample = _load_sample_module()
 
 ClusterUnavailable = getattr(_sample, "ClusterUnavailable")
 await_client_creation = getattr(_sample, "await_client_creation")
