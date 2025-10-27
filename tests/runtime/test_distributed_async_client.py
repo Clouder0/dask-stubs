@@ -1,13 +1,9 @@
 from __future__ import annotations
 
-from typing import Iterator
 from importlib import util
 from pathlib import Path
 
 import pytest
-import dask.config
-from distributed.scheduler import Scheduler
-from distributed.worker import Worker
 
 _SAMPLE_MODULE_NAME = "distributed_client_async_creation_runtime"
 _SAMPLE_PATH = (
@@ -38,20 +34,6 @@ await_client_creation = getattr(_sample, "await_client_creation")
 use_async_context_manager = getattr(_sample, "use_async_context_manager")
 persist_without_await = getattr(_sample, "persist_without_await")
 create_sync_client = getattr(_sample, "create_sync_client")
-
-
-@pytest.fixture(autouse=True)
-def configure_inproc_comm(monkeypatch: pytest.MonkeyPatch) -> Iterator[None]:
-    monkeypatch.setattr(Scheduler, "start_http_server", lambda self, *_, **__: None)
-    monkeypatch.setattr(Worker, "start_http_server", lambda self, *_, **__: None)
-    with dask.config.set(
-        {
-            "distributed.comm.default-scheme": "inproc",
-            "distributed.scheduler.allowed-failures": 0,
-            "distributed.admin.tick.interval": "10ms",
-        }
-    ):
-        yield
 
 
 @pytest.mark.asyncio
