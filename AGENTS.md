@@ -23,3 +23,5 @@ Follow Conventional Commit prefixes (`feat`, `fix`, `docs`, `test`, `chore`) and
 ## IDE & Agent Tips
 
 For VS Code with Pylance, set `"python.analysis.stubPath": ["src/dask-stubs"]` in workspace settings or `pyrightconfig.json`. When running automated agents, export `UV_CACHE_DIR=.uv-cache` to avoid permission errors and drive all automation through `uv run` to respect the locked dependency set. Prefer submitting typed callables over lambdas when checking distributed futures to keep type inference precise.
+
+Note that `dask.distributed.AsyncClient` exists only as a typing helper in this repository. The runtime package exposes a single `Client` class that behaves synchronously or asynchronously depending on how it is constructed; awaiting `Client(asynchronous=True, …)` simply returns the same `Client` instance even though our stubs project it as an `AsyncClient`.

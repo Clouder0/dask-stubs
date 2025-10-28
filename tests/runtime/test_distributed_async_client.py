@@ -31,6 +31,8 @@ await_client_creation = getattr(_sample, "await_client_creation")
 use_async_context_manager = getattr(_sample, "use_async_context_manager")
 persist_without_await = getattr(_sample, "persist_without_await")
 create_sync_client = getattr(_sample, "create_sync_client")
+futures_of_persisted_value = getattr(_sample, "futures_of_persisted_value")
+futures_of_submitted_future = getattr(_sample, "futures_of_submitted_future")
 
 
 @pytest.mark.asyncio
@@ -38,6 +40,8 @@ async def test_async_client_examples() -> None:
     await await_client_creation()
     await use_async_context_manager()
     await persist_without_await()
+    await futures_of_persisted_value()
+    await futures_of_submitted_future()
 
 
 def test_sync_client_example() -> None:

@@ -221,6 +221,11 @@ class Client:
     def run(self, function: Callable[..., U], *args: Any, **kwargs: Any) -> Dict[str, U]: ...
     def run_on_scheduler(self, function: Callable[..., U], *args: Any, **kwargs: Any) -> U: ...
     def wait_for_workers(self, n_workers: int = ..., timeout: float | None = ...) -> None: ...
+    def who_has(
+        self,
+        futures: Future[Any] | Sequence[Future[Any]] | None = ...,
+        **kwargs: Any,
+    ) -> Mapping[str, list[str]]: ...
     def sync(
         self,
         func: Callable[..., U],
@@ -277,6 +282,11 @@ class AsyncClient:
         errors: str = ...,
         direct: bool = ...,
     ) -> list[T]: ...
+    async def who_has(
+        self,
+        futures: Future[Any] | Sequence[Future[Any]] | None = ...,
+        **kwargs: Any,
+    ) -> Mapping[str, list[str]]: ...
     @overload
     async def scatter(
         self,

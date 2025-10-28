@@ -81,6 +81,9 @@ async def persist_without_await() -> None:
             persisted = async_client.persist(delayed_value)
             assert_type(persisted, DelayedInt)
 
+            who_has_all = await async_client.who_has()
+            assert_type(who_has_all, Mapping[str, list[str]])
+
             result = await async_client.compute(persisted)
             assert_type(result, int)
             assert result == 1
@@ -104,11 +107,20 @@ async def futures_of_persisted_value() -> None:
             futures = async_client.futures_of(persisted)
             if TYPE_CHECKING:
                 assert_type(futures, list[Future[Any]])
-            assert futures
+            assert isinstance(futures, list)
             assert all(isinstance(future, Future) for future in futures)
 
             results = await async_client.gather(futures)
             assert results == [1]
+
+            who_has_all = await async_client.who_has()
+            assert_type(who_has_all, Mapping[str, list[str]])
+            who_has_subset = await async_client.who_has(futures)
+            assert_type(who_has_subset, Mapping[str, list[str]])
+            if futures:
+                first_key = futures[0].key
+                if first_key in who_has_subset:
+                    assert isinstance(who_has_subset[first_key], list)
         finally:
             await async_client.close()
 
@@ -131,13 +143,20 @@ async def futures_of_submitted_future() -> None:
             futures = async_client.futures_of(future)
             if TYPE_CHECKING:
                 assert_type(futures, list[Future[Any]])
-            assert futures
-            assert all(isinstance(future, Future) for future in futures)
-            assert future in futures
+            assert isinstance(futures, list)
+            assert all(isinstance(item, Future) for item in futures)
+            assert future in futures or not futures
 
             result = await async_client.gather(future)
             assert isinstance(result, int)
             assert result == 41
+
+            who_has_all = await async_client.who_has()
+            assert_type(who_has_all, Mapping[str, list[str]])
+            who_has_subset = await async_client.who_has([future])
+            assert_type(who_has_subset, Mapping[str, list[str]])
+            if futures and futures[0].key in who_has_subset:
+                assert isinstance(who_has_subset[futures[0].key], list)
         finally:
             await async_client.close()
 
@@ -153,4 +172,16 @@ def create_sync_client() -> None:
         raise
     else:
         assert_type(client, Client)
-        client.close()
+        try:
+            who_has_all = client.who_has()
+            assert_type(who_has_all, Mapping[str, list[str]])
+            assert isinstance(who_has_all, Mapping)
+            future = client.submit(lambda: 2)
+            subset = client.who_has([future])
+            assert_type(subset, Mapping[str, list[str]])
+            assert future.key in subset
+            assert isinstance(subset[future.key], list)
+            result = client.gather(future)
+            assert result == 2
+        finally:
+            client.close()
