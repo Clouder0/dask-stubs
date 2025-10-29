@@ -1,6 +1,6 @@
 [project]
 name = "dask-stubs"
-version = "0.1.5"
+version = "0.1.6"
 description = "Typing stubs for the Dask ecosystem."
 readme = "README.md"
 authors = [
