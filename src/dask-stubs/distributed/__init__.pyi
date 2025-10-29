@@ -226,6 +226,10 @@ class Client:
         futures: Future[Any] | Sequence[Future[Any]] | None = ...,
         **kwargs: Any,
     ) -> Mapping[str, list[str]]: ...
+    def has_what(
+        self,
+        workers: str | Sequence[str] | None = ...,
+    ) -> Mapping[str, list[str]]: ...
     def sync(
         self,
         func: Callable[..., U],
@@ -286,6 +290,10 @@ class AsyncClient:
         self,
         futures: Future[Any] | Sequence[Future[Any]] | None = ...,
         **kwargs: Any,
+    ) -> Mapping[str, list[str]]: ...
+    async def has_what(
+        self,
+        workers: str | Sequence[str] | None = ...,
     ) -> Mapping[str, list[str]]: ...
     @overload
     async def scatter(
